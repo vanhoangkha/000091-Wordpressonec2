@@ -1,0 +1,99 @@
+[
+{
+	"uri": "/2-prerequiste/2.1-createaccesskey/",
+	"title": "Create access key",
+	"tags": [],
+	"description": "",
+	"content": "Generate access key   Access IAM\n Select Users Select Security credentials Select Create access key    Select Download .csv file and select Close. Access key is used to configure terminal local computers or EC2 to use CLI.  Perform CLI configuration. Use the command aws configure  "
+},
+{
+	"uri": "/",
+	"title": "Deploy WordPress to an Amazon EC2 instance using CodeDeploy",
+	"tags": [],
+	"description": "",
+	"content": "Deploy WordPress to an Amazon EC2 instance using CodeDeploy In this workshop, you deploy WordPress, an open source blogging engine and content management system based on PHP and MySQL, to a single Amazon EC2 running Amazon Linux or Red Hat Enterprise Linux (RHEL).\nAWS CodeDeploy is a fully managed deployment service that automates software deployment across compute services like Amazon EC2, AWS Fargate, AWS Lambda, and your on-premises servers. AWS CodeDeploy makes it easier to quickly release new features, avoid downtime during application deployment, and make it simpler to update your application. You can use AWS CodeDeploy to automate software deployments and eliminate the need for error-prone manual tasks. The service scales to fit your deployment needs.\nContent  Introduction Preparation steps Launch an EC2 instance Install CodeDeploy Agent Create S3 bucket Create Deployment Group Deploy Application Clean up resource  "
+},
+{
+	"uri": "/1-introduce/",
+	"title": "Introduction",
+	"tags": [],
+	"description": "",
+	"content": "Introduce In this workshop, you deploy WordPress, an open-source blogging engine and content management system based on PHP and MySQL, to a single Amazon EC2 running Amazon Linux or Red Hat Enterprise Linux (RHEL).\nAWS CodeDeploy is a fully managed deployment service that automates software deployment across compute services like Amazon EC2, AWS Fargate, AWS Lambda, and your on-premises servers. AWS CodeDeploy makes it easier to quickly release new features, avoid downtime during application deployment, and make it simpler to update your application. You can use AWS CodeDeploy to automate software deployments and eliminate the need for error-prone manual tasks. The service scales to fit your deployment needs.\n"
+},
+{
+	"uri": "/2-prerequiste/2.2-createpolicy/",
+	"title": "Create instance profile",
+	"tags": [],
+	"description": "",
+	"content": "Create instance profile   Access IAM\n Select Policies Select Create policy    In the Create policy interface, select the JSON tab. Then enter the following code:   {\r\u0026#34;Version\u0026#34;: \u0026#34;2012-10-17\u0026#34;,\r\u0026#34;Statement\u0026#34;: [\r{\r\u0026#34;Action\u0026#34;: [\r\u0026#34;s3:Get*\u0026#34;,\r\u0026#34;s3:List*\u0026#34;\r],\r\u0026#34;Effect\u0026#34;: \u0026#34;Allow\u0026#34;,\r\u0026#34;Resource\u0026#34;: \u0026#34;*\u0026#34;\r}\r]\r}  Then, select Next:Tags  Add a key-value tag. Select Next Review  Check details.   Name, enter CodeDeployDemo-EC2-Permissions  Create a successful policy.   In the IAM interface\n Select Roles Select Create role     In the Select trusted entity interface\n Select AWS service For Use case, select EC2 Select Next    Find the newly created policy. Select Next  Perform a detailed inspection.   Role name, enter CodeDeployDemo-EC2-Instance-Profile  Select Create role  Create a successful role.  Complete the instance profile creation.  "
+},
+{
+	"uri": "/2-prerequiste/",
+	"title": "Preparation",
+	"tags": [],
+	"description": "",
+	"content": "Preparation steps  Generate Access Key Create instance profile Create service role  "
+},
+{
+	"uri": "/2-prerequiste/2.3-createrole/",
+	"title": "Create service role",
+	"tags": [],
+	"description": "",
+	"content": "Create role   Access IAM\n Select Roles Select Create role     In the Select trusted entity interface\n Select AWS service Select Use case Select CodeDeploy Select Next    Select Next  Check details.   Role name, enter CodeDeployServiceRole  Select Create role  Finish creating the service role.  "
+},
+{
+	"uri": "/3-connectec2/",
+	"title": "Launch an EC2 instance",
+	"tags": [],
+	"description": "",
+	"content": "   Launch an EC2 instance.\n Access to EC2 Select Instance Select Launch instances     In the Launch an instance interface\n Name and tags, enter CodeDeployDemo Select Quick Start Select Amazon Linux     For Instance type select t3.medium\n Select Create new key pair     For Key pair name, enter awsstudygroup\n Select Create key pair This key pair should be stored on the machine carefully to SSH into the EC2 instance.     Perform network configuration\n VPC: Default Subnet: a subnet of VPC default (default is public subnet) Auto-assign public IP: Enable Firewall (security groups): Create security group: SSH / Port 22 / Anywhere HTTP / Port 80 / Anywhere    Advanced details:   IAM instance profile: CodeDeployDemo-EC2-Instance-Profile  Complete EC2 instance creation.  Check details after 3 minutes of EC2 instance initialization.  Check the Security of the EC2 instance.  "
+},
+{
+	"uri": "/4-codedeployagent/",
+	"title": "Installing CodeDeploy Agent",
+	"tags": [],
+	"description": "",
+	"content": "Install CodeDeploy Agent  Do SSH into EC2  Then install CodeDeploy Agent  sudo yum update -y\rsudo yum install ruby ​​-y\rsudo yum install wget -y\r/opt/codedeploy-agent/bin/codedeploy-agent stop\rsudo yum erase codedeploy-agent -y\rcd /home/ec2-user/\rwget https://bucket-name.s3.region-identifier.amazonaws.com/latest/install\rchmod +x ./install\rsudo ./install auto  For bucket name: is the name of Amazon S3 bucket including CodeDeploy Resource Kit files. region-identifier: example as follows  wget https://aws-codedeploy-ap-southeast-1.s3.ap-southeast-1.amazonaws.com/latest/install Check the service is running, use the following command:  sudo service codedeploy-agent status  If the service has an error or is not running, use the following command to start the service:  sudo service codedeploy-agent start\rsudo service codedeploy-agent status Make a move to the tmp folder  cd /tmp\rls Install git to clone resources to:  sudo yum install git You will perform a clone of the WordPress source.  git clone https://github.com/AWS-First-Cloud-Journey/WordPress After cloning the WordPress resource   You make the move to the directory:  ls\rWordPress cd\rls\rcat appspec.yml  You also see the contents of the appspec.yml lifecycle deploy configuration.  Do clone script files in appspec.yml . configuration file  git clone https://github.com/AWS-First-Cloud-Journey/scripts "
+},
+{
+	"uri": "/5-creates3bucket/",
+	"title": "Create S3 bucket",
+	"tags": [],
+	"description": "",
+	"content": "Create S3 bucket   Access to S3\n Select Bucket Select Create bucket    In the Create bucket interface   Bucket name, enter a unique value. Example: codedeploywordpressbucket-2022 Select Region.  Select Create bucket.  Create bucket successfully. Select View details  Select Permissions  Scroll down to Bucket policy   Select Edit  Replace the following policy paragraph:  {\r\u0026#34;Version\u0026#34;: \u0026#34;2012-10-17\u0026#34;,\r\u0026#34;Statement\u0026#34;: [\r{\r\u0026#34;Action\u0026#34;: [\r\u0026#34;s3:PutObject\u0026#34;\r],\r\u0026#34;Effect\u0026#34;: \u0026#34;Allow\u0026#34;,\r\u0026#34;Resource\u0026#34;: \u0026#34;arn:aws:s3:::codedeploydemobucket7749/*\u0026#34;,\r\u0026#34;Principal\u0026#34;: {\r\u0026#34;AWS\u0026#34;: [\r\u0026#34;111122223333\u0026#34;\r]\r}\r}\r]\r}  Replace your Resource ARN. Change your Account ID. Select Save changes  Complete the bucket policy configuration.  "
+},
+{
+	"uri": "/6-deployapplication/",
+	"title": "Create deployment group",
+	"tags": [],
+	"description": "",
+	"content": "Create a deployment group  File structure for deployment:  /tmp/\r|--WordPress/\r|-- appspec.yml\r|-- scripts/\r| |-- change_permissions.sh\r| |-- create_test_db.sh\r| |-- install_dependencies.sh\r| |-- start_server.sh\r| |-- stop_server.sh\r|-- wp-admin/\r| |-- (variable files...)\r|-- wp-content/\r| |-- (variable files...)\r|-- wp-includes/\r| |-- (variable files...)\r|-- index.php\r|-- license.txt\r|-- readme.html\r|-- (variable files ending with .php...)  Create application for CodeDeploy:  cd /tmp/WordPress\raws deploy create-application --application-name WordPress_App  You must configure the CLI to use the command.  Upload revisions of CodeDeploy to Amazon S3.  aws deploy push \\\r--application-name WordPress_App\\\r--s3-location s3://bucketname/WordPressApp.zip \\\r--ignore-hidden-files  Check the S3 bucket to see the push results.   Access the CodeDeploy interface\n Select Applications Select WordPress_App     In the Applicaiton interface\n Select Deployment groups Select Create deployment group    Enter deployment group name. Select Service role.  For Deployment type   Select In-place Environment configuration, select Amazon EC2 instances Enter key Enter value.  Select Deployment as CodeDeployDefault.OneAtATime   Select Create deployment group  Create a successful deployment group.  "
+},
+{
+	"uri": "/7-deploywordpress/",
+	"title": "Deploy the WordPress App",
+	"tags": [],
+	"description": "",
+	"content": "Deploy WordPress App   Back to the application interface\n Select Revisions Select Deploy application     In the deployment interface\n Select the created deployment group. Select My application is stored in Amazon S3 Remaining default configuration.    Select Create deployment  Deployment is successful.  View event deployment details.  View the deployment history of the successful deployment.  See if the deployment group has deployed to zero.  See the application deploy successfully.  Test by accessing the WordPress application using Public Ipv4 DNS.  Success with Apache Sites  Make a navigation to WordPress.  Perform WordPress configuration.   WordPress Configuration\n Database name: test. Username: root Password: leave blank Database Host: localhost Table Prefix: wp_ Select Submit    Select Run the installation  Complete the information.  WordPress theme.  "
+},
+{
+	"uri": "/8-cleanup/",
+	"title": "Clean up resources",
+	"tags": [],
+	"description": "",
+	"content": "Clean up resources  CodeDeploy Application    Go to CodeDeploy.\n  Select WordPress_App.\n  Select Delete application.\n  EC2 Instances    Go to EC2.\n  Select CodeDeployDemo instance.\n  Select Terminate.\n  S3 Bucket    Go to S3.\n  Select S3 bucket related to the lab.\n  Select Empty\n  Then execute Delete.\n  "
+},
+{
+	"uri": "/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]

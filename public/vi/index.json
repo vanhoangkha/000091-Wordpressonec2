@@ -1,0 +1,99 @@
+[
+{
+	"uri": "/vi/1-introduce/",
+	"title": "Giới thiệu",
+	"tags": [],
+	"description": "",
+	"content": "Giới thiệu Trong workshop này, bạn triển khai WordPress, một công cụ viết blog nguồn mở và hệ thống quản lý nội dung dựa trên PHP và MySQL, cho một Amazon EC2 duy nhất chạy Amazon Linux hoặc Red Hat Enterprise Linux (RHEL).\nAWS CodeDeploy là dịch vụ triển khai được quản lý toàn phần có khả năng tự động hóa việc triển khai phần mềm trên các dịch vụ điện toán như Amazon EC2, AWS Fargate, AWS Lambda và các máy chủ chạy tại chỗ của bạn. AWS CodeDeploy giúp bạn nhanh chóng phát hành các tính năng mới một cách dễ dàng hơn, tránh thời gian ngừng hoạt động trong quá trình triển khai ứng dụng và giúp bạn cập nhật ứng dụng đơn giản hơn. Bạn có thể sử dụng AWS CodeDeploy để tự động hóa việc triển khai phần mềm và giúp không cần phải thực hiện các tác vụ thủ công dễ bị lỗi. Dịch vụ thay đổi quy mô để phù hợp với nhu cầu triển khai của bạn.\n"
+},
+{
+	"uri": "/vi/2-prerequiste/2.1-createaccesskey/",
+	"title": "Tạo khóa truy cập",
+	"tags": [],
+	"description": "",
+	"content": "Tạo khóa truy cập   Truy cập IAM\n Chọn Users Chọn Security credentials Chọn Create access key    Chọn Download .csv file và chọn Close. Access key dùng để cấu hình cho terminal các máy tính local hoặc EC2 để sử dụng CLI.  Thực hiện cấu hình CLI. Dùng lệnh aws configure  "
+},
+{
+	"uri": "/vi/",
+	"title": "Triển khai WordPress trên EC2 instance sử dụng CodeDeploy",
+	"tags": [],
+	"description": "",
+	"content": "Triển khai WordPress trên EC2 instance bằng CodeDeploy Trong workshop này, bạn triển khai WordPress, một công cụ viết blog nguồn mở và hệ thống quản lý nội dung dựa trên PHP và MySQL, cho một Amazon EC2 duy nhất chạy Amazon Linux hoặc Red Hat Enterprise Linux (RHEL).\nAWS CodeDeploy là dịch vụ triển khai được quản lý toàn phần có khả năng tự động hóa việc triển khai phần mềm trên các dịch vụ điện toán như Amazon EC2, AWS Fargate, AWS Lambda và các máy chủ chạy tại chỗ của bạn. AWS CodeDeploy giúp bạn nhanh chóng phát hành các tính năng mới một cách dễ dàng hơn, tránh thời gian ngừng hoạt động trong quá trình triển khai ứng dụng và giúp bạn cập nhật ứng dụng đơn giản hơn. Bạn có thể sử dụng AWS CodeDeploy để tự động hóa việc triển khai phần mềm và giúp không cần phải thực hiện các tác vụ thủ công dễ bị lỗi. Dịch vụ thay đổi quy mô để phù hợp với nhu cầu triển khai của bạn.\nNội dung  Giới thiệu Các bước chuẩn bị Khởi tạo EC2 instance Cài đặt CodeDeploy Agent Tạo S3 bucket Tạo Deployment Group Triển khai ứng dụng Dọn dẹp tài nguyên  "
+},
+{
+	"uri": "/vi/2-prerequiste/",
+	"title": "Các bước chuẩn bị",
+	"tags": [],
+	"description": "",
+	"content": "Các bước chuẩn bị  Tạo khóa truy cập Tạo instance profile Tạo service role  "
+},
+{
+	"uri": "/vi/2-prerequiste/2.2-createpolicy/",
+	"title": "Tạo instance profile",
+	"tags": [],
+	"description": "",
+	"content": "Tạo instance profile   Truy cập IAM\n Chọn Policies Chọn Cretae policy    Trong giao diện Create policy, chọn tab JSON. Sau đó, điền đoạn code sau:   {\r\u0026#34;Version\u0026#34;: \u0026#34;2012-10-17\u0026#34;,\r\u0026#34;Statement\u0026#34;: [\r{\r\u0026#34;Action\u0026#34;: [\r\u0026#34;s3:Get*\u0026#34;,\r\u0026#34;s3:List*\u0026#34;\r],\r\u0026#34;Effect\u0026#34;: \u0026#34;Allow\u0026#34;,\r\u0026#34;Resource\u0026#34;: \u0026#34;*\u0026#34;\r}\r]\r}  Sau đó, chọn Next:Tags  Thêm tag dạng key-value. Chọn Next Review  Kiểm tra chi tiết.   Name, nhập CodeDeployDemo-EC2-Permissions  Tạo policy thành công.   Trong giao diện IAM\n Chọn Roles Chọn Create role     Trong giao diện Select trusted entity\n Chọn AWS service Đối với Use case, chọn EC2 Chọn Next    Tìm policy vừa tạo. Chọn Next  Thực hiện kiểm tra chi tiết.   Role name, nhập CodeDeployDemo-EC2-Instance-Profile  Chọn Create role  Tạo role thành công.  Hoàn thành tạo instance profile.  "
+},
+{
+	"uri": "/vi/3-connectec2/",
+	"title": "Khởi tạo EC2 instance",
+	"tags": [],
+	"description": "",
+	"content": "   Khởi tạo EC2 instance.\n Truy cập vào EC2 Chọn Instance Chọn Launch instances     Trong giao diện Launch an instance\n Name and tags, nhập CodeDeployDemo Chọn Quick Start Chọn Amazon Linux     Đối với Instance type chọn t3.medium\n Chọn Create new key pair     Đối với Key pair name, nhập awsstudygroup\n Chọn Create key pair Key pair này nên lưu trữ trên máy cẩn thận dùng để SSH vào EC2 instance.     Thực hiện cấu hình network\n VPC: default Subnet: a subnet of VPC default (default is public subnet) Auto-assign public IP: Enable Firewall (security groups): Create security group: SSH / Port 22 / Anywhere HTTP / Port 80 / Anywhere    Advanced details:   IAM instance profile: CodeDeployDemo-EC2-Instance-Profile  Hoàn thành tạo EC2 instance.  Kiểm tra chi tiết sau 3 phút khởi tạo EC2 instance.  Kiểm tra Security của EC2 instance.  "
+},
+{
+	"uri": "/vi/2-prerequiste/2.3-createrole/",
+	"title": "Tạo service role",
+	"tags": [],
+	"description": "",
+	"content": "Tạo role   Truy cập IAM\n Chọn Roles Chọn Create role     Trong giao diện Select trusted entity\n Chọn AWS service Chọn Use case Chọn CodeDeploy Chọn Next    Chọn Next  Kiểm tra chi tiết.   Role name, nhập CodeDeployServiceRole  Chọn Create role  Hoàn thành tạo service role.  "
+},
+{
+	"uri": "/vi/4-codedeployagent/",
+	"title": "Cài đặt CodeDeploy Agent",
+	"tags": [],
+	"description": "",
+	"content": "Cài đặt CodeDeploy Agent  Thực hiện SSH vào EC2  Sau đó, cài đặt CodeDeploy Agent  sudo yum update -y\rsudo yum install ruby -y\rsudo yum install wget -y\r/opt/codedeploy-agent/bin/codedeploy-agent stop\rsudo yum erase codedeploy-agent -y\rcd /home/ec2-user/\rwget https://bucket-name.s3.region-identifier.amazonaws.com/latest/install\rchmod +x ./install\rsudo ./install auto  Đối với bucket name: là tên của Amazon S3 bucket gồm các file CodeDeploy Resource Kit. region-identifier: ví dụ như sau  wget https://aws-codedeploy-ap-southeast-1.s3.ap-southeast-1.amazonaws.com/latest/install Kiểm tra service đang chạy, sử dụng lệnh sau:  sudo service codedeploy-agent status  Nếu như service gặp lỗi hoặc không chạy, sử dụng lệnh sau để khởi động service:  sudo service codedeploy-agent start\rsudo service codedeploy-agent status Thực hiện di chuyển đến thư mục tmp  cd /tmp\rls Cài đặt git để clone resource về:  sudo yum install git Bạn sẽ thực hiện clone nguồn WordPress.  git clone https://github.com/AWS-First-Cloud-Journey/WordPress Sau khi clone resource WordPress   Bạn thực hiện di chuyển đến thư mục:  ls\rcd WordPress\rls\rcat appspec.yml  Bạn cũng xem nội dung của appspec.yml cấu hình lifecycle deploy.  Thực hiện clone các file script trong cấu hình file appspec.yml  git clone https://github.com/AWS-First-Cloud-Journey/scripts "
+},
+{
+	"uri": "/vi/5-creates3bucket/",
+	"title": "Tạo S3 bucket",
+	"tags": [],
+	"description": "",
+	"content": "Tạo S3 bucket   Truy cập vào S3\n Chọn Bucket Chọn Create bucket    Trong giao diện Create bucket   Bucket name, nhập giá trị duy nhất. Ví dụ: codedeploywordpressbucket-2022 Chọn Region.  Chọn Create bucket.  Tạo bucket thành công. Chọn View details  Chọn Permissions  Kéo xuống đến Bucket policy   Chọn Edit  Thay đoạn policy sau:  {\r\u0026#34;Version\u0026#34;: \u0026#34;2012-10-17\u0026#34;,\r\u0026#34;Statement\u0026#34;: [\r{\r\u0026#34;Action\u0026#34;: [\r\u0026#34;s3:PutObject\u0026#34;\r],\r\u0026#34;Effect\u0026#34;: \u0026#34;Allow\u0026#34;,\r\u0026#34;Resource\u0026#34;: \u0026#34;arn:aws:s3:::codedeploydemobucket7749/*\u0026#34;,\r\u0026#34;Principal\u0026#34;: {\r\u0026#34;AWS\u0026#34;: [\r\u0026#34;111122223333\u0026#34;\r]\r}\r}\r]\r}  Thay Resource ARN của bạn. Thay Account ID của bạn. Chọn Save changes  Hoàn thành cấu hình bucket policy.  "
+},
+{
+	"uri": "/vi/6-deployapplication/",
+	"title": "Tạo deployment group",
+	"tags": [],
+	"description": "",
+	"content": "Tạo deployment group  Cấu trúc file để triển khai:  /tmp/\r|--WordPress/\r|-- appspec.yml |-- scripts/\r| |-- change_permissions.sh\r| |-- create_test_db.sh\r| |-- install_dependencies.sh\r| |-- start_server.sh\r| |-- stop_server.sh\r|-- wp-admin/\r| |-- (various files...)\r|-- wp-content/\r| |-- (various files...)\r|-- wp-includes/\r| |-- (various files...)\r|-- index.php\r|-- license.txt\r|-- readme.html\r|-- (various files ending with .php...)  Thực hiện tạo application cho CodeDeploy:  cd /tmp/WordPress\raws deploy create-application --application-name WordPress_App  Bạn phải cấu hình CLI để sử dụng lệnh.  Thực hiện upload revision của CodeDeploy lên Amazon S3.  aws deploy push \\\r--application-name WordPress_App \\\r--s3-location s3://bucketname/WordPressApp.zip \\\r--ignore-hidden-files  Kiểm tra S3 bucket xem kết quả push.   Truy cập giao diện CodeDeploy\n Chọn Applications Chọn WordPress_App     Trong giao diện Applicaiton\n Chọn Deployment groups Chọn Create deployment group    Nhập deployment group name. Chọn Service role.  Đối với Deployment type   Chọn In-place Environment configuration, chọn Amazon EC2 instances Nhập key Nhập value.  Chọn Deployment là CodeDeployDefault.OneAtATime   Chọn Create deployment group  Tạo deployment group thành công.  "
+},
+{
+	"uri": "/vi/7-deploywordpress/",
+	"title": "Triển khai ứng dụng WordPress",
+	"tags": [],
+	"description": "",
+	"content": "Triển khai ứng dụng WordPress   Quay lại giao diện application\n Chọn Revisions Chọn Deploy application     Trong giao diện deployment\n Chọn deployment group đã tạo. Chọn My application is stored in Amazon S3 Còn lại cấu hình mặc định.    Chọn Create deployment  Deployment thành công.  Xem chi tiết event deployment.  Xem deployment history về deployment đã thành công.  Xem deployment group đã deploy thành không.  Xem application deploy thành công.  Kiểm tra bằng cách truy cập vào ứng dụng WordPress bằng Public Ipv4 DNS.  Thành công với trang Apache  Thực hiện điều hướng đến WordPress.  Thực hiện cấu hình WordPress.   Cấu hình WordPress\n Database name: test. Username: root Password: để trống Database Host: localhost Table Prefix: wp_ Chọn Submit    Chọn Run the installation  Hoàn thành các thông tin.  Giao diện WordPress.  "
+},
+{
+	"uri": "/vi/8-cleanup/",
+	"title": "Dọn dẹp tài nguyên",
+	"tags": [],
+	"description": "",
+	"content": "Dọn dẹp tài nguyên  CodeDeploy Application    Truy cập CodeDeploy.\n  Chọn WordPress_App.\n  Chọn Delete application.\n  EC2 Instances    Truy cập vào EC2.\n  Chọn CodeDeployDemo instance.\n  Chọn Terminate.\n  S3 Bucket    Truy cập S3.\n  Chọn S3 bucket liên quan bài lab.\n  Chọn Empty\n  Sau đó thực hiện Delete.\n  "
+},
+{
+	"uri": "/vi/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/vi/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]
