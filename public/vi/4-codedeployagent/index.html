@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="Hugo 0.99.1" />
+    <meta name="generator" content="Hugo 0.133.0">
     <meta name="description" content="">
 <meta name="author" content="journeyoftheaverageguy@gmail.com">
 
@@ -12,21 +12,21 @@
     <title>Cài đặt CodeDeploy Agent :: Triển khai WordPress trên EC2 instance bằng CodeDeploy</title>
 
     
-    <link href="/css/nucleus.css?1701092139" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1701092139" rel="stylesheet">
-    <link href="/css/hybrid.css?1701092139" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1701092139" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1701092139" rel="stylesheet">
-    <link href="/css/auto-complete.css?1701092139" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1701092139" rel="stylesheet">
-    <link href="/css/theme.css?1701092139" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1701092139" rel="stylesheet">
+    <link href="/css/nucleus.css?1733818855" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1733818855" rel="stylesheet">
+    <link href="/css/hybrid.css?1733818855" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1733818855" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1733818855" rel="stylesheet">
+    <link href="/css/auto-complete.css?1733818855" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1733818855" rel="stylesheet">
+    <link href="/css/theme.css?1733818855" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1733818855" rel="stylesheet">
     
-    <link href="/css/theme-workshop.css?1701092139" rel="stylesheet">
+    <link href="/css/theme-workshop.css?1733818855" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1701092139"></script>
+    <script src="/js/jquery-3.3.1.min.js?1733818855"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -57,14 +57,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1701092139"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1701092139"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1733818855"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1733818855"></script>
 <script type="text/javascript">
     
-        var baseurl = "\/vi";
+        var baseurl = "\/\/vi";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1701092139"></script>
+<script type="text/javascript" src="/js/search.js?1733818855"></script>
 
     
   </div>
@@ -257,7 +257,7 @@
   
     
     <li data-nav-id="/vi/4-codedeployagent/" title="Cài đặt CodeDeploy Agent" class="dd-item 
-        parent
+        
         active
         
         ">
@@ -469,7 +469,7 @@
     <br>
     <br>
         <b> Last Updated </b> <br>
-        <i><font color=orange>27-11-2023</font></i>
+        <i><font color=orange>10-12-2024</font></i>
     </left>
     <left>
         <br>
@@ -564,7 +564,7 @@
 <ol>
 <li>Thực hiện SSH vào <strong>EC2</strong></li>
 </ol>
-<p><img src="/images/5/0001.png?featherlight=false&amp;width=90pc" alt="CodeDeploy"></p>
+<p><img alt="CodeDeploy" src="/images/5/0001.png?featherlight=false&width=90pc"></p>
 <ol start="2">
 <li>Sau đó, cài đặt CodeDeploy Agent</li>
 </ol>
@@ -582,7 +582,7 @@ sudo ./install auto
 <li>region-identifier: ví dụ như sau</li>
 </ul>
 <pre tabindex="0"><code>wget https://aws-codedeploy-ap-southeast-1.s3.ap-southeast-1.amazonaws.com/latest/install
-</code></pre><p><img src="/images/5/0002.png?featherlight=false&amp;width=90pc" alt="CodeDeploy"></p>
+</code></pre><p><img alt="CodeDeploy" src="/images/5/0002.png?featherlight=false&width=90pc"></p>
 <ol start="3">
 <li>Kiểm tra service đang chạy, sử dụng lệnh sau:</li>
 </ol>
@@ -592,23 +592,23 @@ sudo ./install auto
 </ul>
 <pre tabindex="0"><code>sudo service codedeploy-agent start
 sudo service codedeploy-agent status
-</code></pre><p><img src="/images/5/0003.png?featherlight=false&amp;width=90pc" alt="CodeDeploy"></p>
+</code></pre><p><img alt="CodeDeploy" src="/images/5/0003.png?featherlight=false&width=90pc"></p>
 <ol start="4">
 <li>Thực hiện di chuyển đến thư mục <strong>tmp</strong></li>
 </ol>
 <pre tabindex="0"><code>cd /tmp
 ls
-</code></pre><p><img src="/images/5/0004.png?featherlight=false&amp;width=90pc" alt="CodeDeploy"></p>
+</code></pre><p><img alt="CodeDeploy" src="/images/5/0004.png?featherlight=false&width=90pc"></p>
 <ol start="5">
 <li>Cài đặt git để clone resource về:</li>
 </ol>
 <pre tabindex="0"><code>sudo yum install git
-</code></pre><p><img src="/images/5/0005.png?featherlight=false&amp;width=90pc" alt="CodeDeploy"></p>
+</code></pre><p><img alt="CodeDeploy" src="/images/5/0005.png?featherlight=false&width=90pc"></p>
 <ol start="6">
 <li>Bạn sẽ thực hiện clone nguồn WordPress.</li>
 </ol>
 <pre tabindex="0"><code>git clone https://github.com/AWS-First-Cloud-Journey/WordPress
-</code></pre><p><img src="/images/5/0006.png?featherlight=false&amp;width=90pc" alt="CodeDeploy"></p>
+</code></pre><p><img alt="CodeDeploy" src="/images/5/0006.png?featherlight=false&width=90pc"></p>
 <ol start="7">
 <li>Sau khi clone resource WordPress</li>
 </ol>
@@ -622,12 +622,12 @@ cat appspec.yml
 </code></pre><ul>
 <li>Bạn cũng xem nội dung của appspec.yml cấu hình lifecycle deploy.</li>
 </ul>
-<p><img src="/images/5/0007.png?featherlight=false&amp;width=90pc" alt="CodeDeploy"></p>
+<p><img alt="CodeDeploy" src="/images/5/0007.png?featherlight=false&width=90pc"></p>
 <ol start="8">
 <li>Thực hiện clone các file script trong cấu hình file appspec.yml</li>
 </ol>
 <pre tabindex="0"><code>git clone https://github.com/AWS-First-Cloud-Journey/scripts
-</code></pre><p><img src="/images/5/0008.png?featherlight=false&amp;width=90pc" alt="CodeDeploy"></p>
+</code></pre><p><img alt="CodeDeploy" src="/images/5/0008.png?featherlight=false&width=90pc"></p>
 
 
 
@@ -870,19 +870,19 @@ cat appspec.yml
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1701092139"></script>
-    <script src="/js/perfect-scrollbar.min.js?1701092139"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1701092139"></script>
-    <script src="/js/jquery.sticky.js?1701092139"></script>
-    <script src="/js/featherlight.min.js?1701092139"></script>
-    <script src="/js/highlight.pack.js?1701092139"></script>
+    <script src="/js/clipboard.min.js?1733818855"></script>
+    <script src="/js/perfect-scrollbar.min.js?1733818855"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1733818855"></script>
+    <script src="/js/jquery.sticky.js?1733818855"></script>
+    <script src="/js/featherlight.min.js?1733818855"></script>
+    <script src="/js/highlight.pack.js?1733818855"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1701092139"></script>
-    <script src="/js/learn.js?1701092139"></script>
-    <script src="/js/hugo-learn.js?1701092139"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1733818855"></script>
+    <script src="/js/learn.js?1733818855"></script>
+    <script src="/js/hugo-learn.js?1733818855"></script>
 
-    <link href="/mermaid/mermaid.css?1701092139" rel="stylesheet" />
-    <script src="/mermaid/mermaid.js?1701092139"></script>
+    <link href="/mermaid/mermaid.css?1733818855" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1733818855"></script>
     <script>
         mermaid.initialize({ startOnLoad: true });
     </script>

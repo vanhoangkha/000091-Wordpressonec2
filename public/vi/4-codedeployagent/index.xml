@@ -4,6 +4,8 @@
     <title>Cài đặt CodeDeploy Agent on Triển khai WordPress trên EC2 instance bằng CodeDeploy</title>
     <link>/vi/4-codedeployagent/</link>
     <description>Recent content in Cài đặt CodeDeploy Agent on Triển khai WordPress trên EC2 instance bằng CodeDeploy</description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="/vi/4-codedeployagent/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>vi</language>
+    <atom:link href="/vi/4-codedeployagent/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

@@ -4,6 +4,8 @@
     <title>Installing CodeDeploy Agent on Deploy WordPress to an Amazon EC2 instance using CodeDeploy</title>
     <link>/4-codedeployagent/</link>
     <description>Recent content in Installing CodeDeploy Agent on Deploy WordPress to an Amazon EC2 instance using CodeDeploy</description>
-    <generator>Hugo -- gohugo.io</generator><atom:link href="/4-codedeployagent/index.xml" rel="self" type="application/rss+xml" />
+    <generator>Hugo</generator>
+    <language>en</language>
+    <atom:link href="/4-codedeployagent/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
