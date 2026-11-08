@@ -4,7 +4,7 @@
 
 A hands-on workshop from the [AWS First Cloud Journey](https://github.com/vanhoangkha/aws-first-cloud-journey) series, available in English and Vietnamese.
 
-**Read the workshop online:** https://vanhoangkha.github.io/000091-Wordpressonec2/
+**Read the workshop online:** https://vanhoangkha.github.io/000091-WordPressonec2/
 
 ## Overview
 
@@ -35,8 +35,8 @@ AWS CodeDeploy is a fully managed deployment service that automates software dep
 ## Run locally
 
 ```bash
-git clone --recurse-submodules https://github.com/vanhoangkha/000091-Wordpressonec2.git
-cd 000091-Wordpressonec2
+git clone --recurse-submodules https://github.com/vanhoangkha/000091-WordPressonec2.git
+cd 000091-WordPressonec2
 hugo server
 ```
 
